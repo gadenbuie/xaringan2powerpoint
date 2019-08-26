@@ -1,0 +1,123 @@
+---
+title: "Presentation Ninja"
+subtitle: "xaringan to powerpooint"  
+author: "Reluctant Presenter"
+date: '30 Minutes from Now'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+style_mono_light(
+  "#05a8aa",
+  text_font_google = google_font("Roboto"),
+  text_font_size = "24px",
+  background_color = "#FFFFFF",
+  code_font_family = "Fira Code",
+  code_font_size = "0.8em",
+  code_font_url    = "https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css",
+  extra_css = list(
+    "img" = list(
+      "max-width" = "90vw",
+      "max-height" = "90vh"
+    ),
+    ".hide-count .remark-slide-number" = list(
+      disyplay = "none"
+    )
+  )
+)
+```
+
+class: center middle inverse
+
+# I made so many fancy slides!
+
+---
+background-image: url(data-ai-machine-learning-buzzwords.jpg)
+background-size: 55%
+background-position: 96% 50%
+
+# Like this one!
+
+.pull-left[
+It has a very nice list of my favorite **built-in** data sets
+
+1. iris
+1. mtcars
+1. airquality
+1. starwars
+1. diamonds
+]
+
+
+---
+
+# I made a plot with some R code
+
+```{r, fig.width=6, fig.height=4, fig.retina=2, out.width="66%"}
+library(ggplot2)
+ggplot(iris) + 
+  aes(Sepal.Width, Petal.Width, color = Species) +
+  geom_point()
+```
+
+---
+class: center
+
+# I even have a cat gif
+
+![](cat.gif)
+
+---
+
+class: inverse center middle
+
+# and that's when they told me...
+
+--
+
+# pOwErPoInT oNlY!!1!1!!
+
+---
+class: hide-count
+background-image: url(single-tear.jpg)
+background-size: cover
+
+---
+
+```r
+pagedown::chrome_print("slides.html", output = "slides.pdf")
+pdftools::pdf_convert("slides.pdf")
+slide_images <- fs::dir_ls(regexp = "slides_\\d+[.]png")
+slide_images <- glue::glue(
+"
+---
+
+![]({slide_images}){{width=100%, height=100%}}
+
+
+")
+slide_images <- paste(slide_images, collapse = "\n")
+md <- glue::glue(
+  "
+  ---
+  output: powerpoint_presentation
+  ---
+  
+  {slide_images}
+  "
+)
+cat(md, file = "slides_powerpoint.Rmd")
+rmarkdown::render("slides_powerpoint.Rmd")  ## powerpoint!
+```

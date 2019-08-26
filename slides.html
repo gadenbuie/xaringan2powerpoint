@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Presentation Ninja</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Reluctant Presenter" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Presentation Ninja
+## xaringan to powerpooint
+### Reluctant Presenter
+### 30 Minutes from Now
+
+---
+
+
+
+
+
+
+class: center middle inverse
+
+# I made so many fancy slides!
+
+---
+background-image: url(data-ai-machine-learning-buzzwords.jpg)
+background-size: 55%
+background-position: 96% 50%
+
+# Like this one!
+
+.pull-left[
+It has a very nice list of my favorite **built-in** data sets
+
+1. iris
+1. mtcars
+1. airquality
+1. starwars
+1. diamonds
+]
+
+
+---
+
+# I made a plot with some R code
+
+
+```r
+library(ggplot2)
+ggplot(iris) + 
+  aes(Sepal.Width, Petal.Width, color = Species) +
+  geom_point()
+```
+
+&lt;img src="slides_files/figure-html/unnamed-chunk-1-1.png" width="66%" /&gt;
+
+---
+class: center
+
+# I even have a cat gif
+
+![](cat.gif)
+
+---
+
+class: inverse center middle
+
+# and that's when they told me...
+
+--
+
+# pOwErPoInT oNlY!!1!1!!
+
+---
+class: hide-count
+background-image: url(single-tear.jpg)
+background-size: cover
+
+---
+
+```r
+pagedown::chrome_print("slides.html", output = "slides.pdf")
+pdftools::pdf_convert("slides.pdf")
+slide_images &lt;- fs::dir_ls(regexp = "slides_\\d+[.]png")
+slide_images &lt;- glue::glue(
+"
+---
+
+![]({slide_images}){{width=100%, height=100%}}
+
+
+")
+slide_images &lt;- paste(slide_images, collapse = "\n")
+md &lt;- glue::glue(
+  "
+  ---
+  output: powerpoint_presentation
+  ---
+  
+  {slide_images}
+  "
+)
+cat(md, file = "slides_powerpoint.Rmd")
+rmarkdown::render("slides_powerpoint.Rmd")  ## powerpoint!
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
