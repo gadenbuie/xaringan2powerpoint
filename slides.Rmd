@@ -99,17 +99,16 @@ background-size: cover
 ---
 
 ```r
-fs::dir_create("slides")
 pagedown::chrome_print("slides.html", output = "slides.pdf")
 pages <- pdftools::pdf_info("slides.pdf")$pages
 filenames <- sprintf("slides/slides_%02d.png", 1:pages)
+dir.create("slides")
 pdftools::pdf_convert("slides.pdf", filenames = filenames)
-slide_images <- fs::dir_ls("slides", regexp = "slides_\\d+[.]png")
 slide_images <- glue::glue(
   "
 ---
 
-![]({slide_images}){{width=100%, height=100%}}
+![]({filenames}){{width=100%, height=100%}}
 
 ")
 slide_images <- paste(slide_images, collapse = "\n")
