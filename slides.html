@@ -88,10 +88,10 @@ background-size: cover
 
 ```r
 fs::dir_create("slides")
-pagedown::chrome_print("slides.html", output = "slides/slides.pdf")
-pages &lt;- pdftools::pdf_info("slides/slides.pdf")$pages
+pagedown::chrome_print("slides.html", output = "slides.pdf")
+pages &lt;- pdftools::pdf_info("slides.pdf")$pages
 filenames = sprintf("slides/slides_%02d.png", 1:pages)
-pdftools::pdf_convert("slides/slides.pdf", filenames = filenames)
+pdftools::pdf_convert("slides.pdf", filenames = filenames)
 slide_images &lt;- fs::dir_ls("slides", regexp = "slides_\\d+[.]png")
 slide_images &lt;- glue::glue(
   "
