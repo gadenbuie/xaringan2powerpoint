@@ -51,7 +51,7 @@ h1, h2, h3 {
   font-family: 'Fira Code', 'Lucida Console', Monaco, monospace;
 }
 .remark-code {
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 .remark-inline-code {
   color: #05a8aa;
@@ -68,9 +68,9 @@ a, a > code {
   text-decoration: none;
 }
 .footnote {
-  
+  color: #ccc;
   position: absolute;
-  bottom: 3em;
+  bottom: 0.5em;
   padding-right: 4em;
   font-size: 0.9em;
 }
@@ -196,10 +196,6 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 
 
 /* Extra CSS */
-img {
-  max-width: 90vw;
-  max-height: 90vh;
-}
 .hide-count .remark-slide-number {
   disyplay: none;
 }

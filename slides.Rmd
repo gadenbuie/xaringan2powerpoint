@@ -25,13 +25,11 @@ style_mono_light(
   text_font_size = "24px",
   background_color = "#FFFFFF",
   code_font_family = "Fira Code",
-  code_font_size = "0.8em",
+  code_font_size = "0.7em", 
+  footnote_color = "#ccc",
+  footnote_position_bottom = "0.5em",
   code_font_url    = "https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css",
   extra_css = list(
-    "img" = list(
-      "max-width" = "90vw",
-      "max-height" = "90vh"
-    ),
     ".hide-count .remark-slide-number" = list(
       disyplay = "none"
     )
@@ -44,7 +42,7 @@ class: center middle inverse
 # I made so many fancy slides!
 
 ---
-background-image: url(data-ai-machine-learning-buzzwords.jpg)
+background-image: url(img/data-ai-machine-learning-buzzwords.jpg)
 background-size: 55%
 background-position: 96% 50%
 
@@ -59,6 +57,8 @@ It has a very nice list of my favorite **built-in** data sets
 1. starwars
 1. diamonds
 ]
+
+.footnote[Photo by Balázs Kétyi on Unsplash]
 
 
 ---
@@ -77,7 +77,7 @@ class: center
 
 # I even have a cat gif
 
-![](cat.gif)
+![](img/cat.gif)
 
 ---
 
@@ -91,21 +91,25 @@ class: inverse center middle
 
 ---
 class: hide-count
-background-image: url(single-tear.jpg)
+background-image: url(img/single-tear.jpg)
 background-size: cover
+
+.footnote[Photo by Aliyah Jamous on Unsplash]
 
 ---
 
 ```r
-pagedown::chrome_print("slides.html", output = "slides.pdf")
-pdftools::pdf_convert("slides.pdf")
-slide_images <- fs::dir_ls(regexp = "slides_\\d+[.]png")
+fs::dir_create("slides")
+pagedown::chrome_print("slides.html", output = "slides/slides.pdf")
+pages <- pdftools::pdf_info("slides/slides.pdf")$pages
+filenames = sprintf("slides/slides_%02d.png", 1:pages)
+pdftools::pdf_convert("slides/slides.pdf", filenames = filenames)
+slide_images <- fs::dir_ls("slides", regexp = "slides_\\d+[.]png")
 slide_images <- glue::glue(
-"
+  "
 ---
 
 ![]({slide_images}){{width=100%, height=100%}}
-
 
 ")
 slide_images <- paste(slide_images, collapse = "\n")
@@ -121,3 +125,9 @@ md <- glue::glue(
 cat(md, file = "slides_powerpoint.Rmd")
 rmarkdown::render("slides_powerpoint.Rmd")  ## powerpoint!
 ```
+
+---
+
+class: center middle
+
+<span style="font-size: 10em">&#x1F60E;</span>
