@@ -17,25 +17,22 @@ dir.create("slides")
 pdftools::pdf_convert("slides.pdf", filenames = filenames)
 
 # Template for markdown containing slide images
-slide_images <- glue::glue(
-  "
+slide_images <- glue::glue("
 ---
 
 ![]({filenames}){{width=100%, height=100%}}
-
+  
 ")
 slide_images <- paste(slide_images, collapse = "\n")
 
 # R Markdown -> powerpoint presentation source
-md <- glue::glue(
-  "
-  ---
-  output: powerpoint_presentation
-  ---
-  
-  {slide_images}
-  "
-)
+md <- glue::glue("
+---
+output: powerpoint_presentation
+---
+
+{slide_images}
+")
 
 cat(md, file = "slides_powerpoint.Rmd")
 
