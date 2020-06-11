@@ -51,7 +51,6 @@ background-position: 96% 50%
 .pull-left[
 It has a very nice list of my favorite **built-in** data sets
 
-1. iris
 1. mtcars
 1. airquality
 1. starwars
@@ -67,8 +66,8 @@ It has a very nice list of my favorite **built-in** data sets
 
 ```{r, fig.width=6, fig.height=4, fig.retina=2, out.width="66%"}
 library(ggplot2)
-ggplot(iris) + 
-  aes(Sepal.Width, Petal.Width, color = Species) +
+ggplot(mpg) + 
+  aes(cty, hwy, color = drv) +
   geom_point()
 ```
 
